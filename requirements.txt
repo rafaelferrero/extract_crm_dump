@@ -1,0 +1,8 @@
+et-xmlfile==1.0.1
+jdcal==1.4
+lml==0.0.9
+openpyxl==2.5.14
+pyexcel==0.5.13
+pyexcel-io==0.5.17
+pyexcel-xlsx==0.5.7
+texttable==1.6.1

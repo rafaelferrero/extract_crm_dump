@@ -22,6 +22,14 @@ def get_help():
     return ayuda
 
 
+def limpieza_e_incremento(row):
+    import pdb
+    pdb.set_trace()
+    for element in row:
+        element.replace("_x000D_\n", " ").replace("|", "/")
+        yield element + 1
+
+
 def main(argument):
     path_to_ifile = ''
     path_to_ofile = ''
@@ -43,30 +51,18 @@ def main(argument):
         path_to_ofile = get_save_name() + '.csv'
 
     if path_to_ifile:
-        contenido = pe.get_sheet(file_name=path_to_ifile, start_row=0, row_limit=30)
-        import pdb
-        pdb.set_trace()
-        contenido.save_as(filename=path_to_ofile, delimiter=':', encoding='utf-8-sig')
+        contenido = pe.get_sheet(file_name=path_to_ifile)
 
-        # items = []
-        # lines = []
-        # claves = []
-        #
-        # for clave in contenido[0].keys():
-        #     claves.append(clave)
-        #
-        # for x in range(15, 18):
-        #     for index, registro in enumerate(contenido):
-        #         for clave in claves:
-        #             items.append(contenido[index][clave])
-        #         lines.append(items)
-        #         items.clear()
-        # import pdb
-        # pdb.set_trace()
-        #
-        # outputfile = open(path_to_ofile, "+", wencoding="utf8")
-        # with open(path_to_ifile, "rt", encoding="utf8") as opened_file:
-        #     pass
+        for ic, registro in enumerate(contenido):
+            for ir, item in enumerate(registro):
+                if isinstance(item, str):
+                    contenido[ic, ir] = item.replace("_x000D_\n", " ").replace("|", "/")
+
+        contenido.save_as(
+            filename=path_to_ofile,
+            delimiter='|',
+            encoding='utf-8-sig'
+        )
 
 
 if __name__ == "__main__":
