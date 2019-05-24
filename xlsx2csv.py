@@ -23,10 +23,10 @@ def get_help():
 
 
 def limpieza_e_incremento(row):
-    import pdb
-    pdb.set_trace()
+    # import pdb
+    # pdb.set_trace()
     for element in row:
-        element.replace("_x000D_\n", " ").replace("|", "/")
+        element.replace("_x000D_\n", " ").replace("|", "/").strip()
         yield element + 1
 
 
@@ -56,7 +56,7 @@ def main(argument):
         for ic, registro in enumerate(contenido):
             for ir, item in enumerate(registro):
                 if isinstance(item, str):
-                    contenido[ic, ir] = item.replace("_x000D_\n", " ").replace("|", "/")
+                    contenido[ic, ir] = item.replace("_x000D_\n", " ").replace("|", "/").strip()
 
         contenido.save_as(
             filename=path_to_ofile,
